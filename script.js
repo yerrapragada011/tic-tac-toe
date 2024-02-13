@@ -45,3 +45,63 @@ const gameBoard = (() => {
 
   return { getBoard, markCell, checkWinner, resetBoard }
 })()
+
+const gameController = (() => {
+  let currentPlayer = 'X'
+
+  const getCurrentPlayer = () => currentPlayer
+
+  const switchPlayer = () => {
+    currentPlayer = currentPlayer === 'X' ? 'O' : 'X'
+  }
+
+  return { getCurrentPlayer, switchPlayer }
+})()
+
+const displayController = (() => {
+  const cells = document.querySelectorAll('.cell')
+  const status = document.querySelector('.status')
+
+  const render = () => {
+    const board = gameBoard.getBoard()
+    cells.forEach((cell, index) => {
+      cell.textContent = board[index]
+      cell.classList.remove('cross', 'circle')
+      if (board[index] === 'X') {
+        cell.classList.add('cross')
+      } else if (board[index] === 'O') {
+        cell.classList.add('circle')
+      }
+    })
+  }
+
+  cells.forEach((cell) => {
+    cell.addEventListener('click', () => {
+      if (!cell.textContent) {
+        const index = cell.dataset.index
+        const currentPlayer = gameController.getCurrentPlayer()
+        if (gameBoard.markCell(index, currentPlayer)) {
+          render()
+          const winner = gameBoard.checkWinner()
+          if (winner) {
+            if (winner === 'tie') {
+              status.textContent = `It's a tie!`
+              //   alert(`It's a tie!`)
+            } else {
+              status.textContent = `${winner} wins!`
+              //   alert(`${winner} wins!`)
+            }
+            gameBoard.resetBoard()
+            render()
+          } else {
+            gameController.switchPlayer()
+          }
+        }
+      }
+    })
+  })
+
+  return { render }
+})()
+
+displayController.render()
