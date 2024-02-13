@@ -1,0 +1,30 @@
+.board {
+  display: grid;
+  grid-template-columns: repeat(3, 100px);
+  grid-template-rows: repeat(3, 100px);
+  gap: 2px;
+  justify-content: center;
+  margin: 50px auto;
+}
+
+.cell {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2em;
+  background-color: #ddd;
+  cursor: pointer;
+  color: black;
+}
+
+.cell:hover {
+  background-color: #aaa;
+}
+
+.cell.circle {
+  color: red;
+}
+
+.cell.cross {
+  color: blue;
+}
