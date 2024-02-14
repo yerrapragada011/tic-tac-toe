@@ -68,6 +68,8 @@ const displayController = (() => {
   const boardDisplay = document.getElementById('board')
   const resetBtnDisplay = document.querySelector('.reset-btn-container')
   const startBtnDisplay = document.querySelector('.start-btn-container')
+  const playerTurn = document.querySelector('.player-turn')
+  //   const currentPlayer = gameController.getCurrentPlayer()
 
   const render = () => {
     const board = gameBoard.getBoard()
@@ -86,8 +88,9 @@ const displayController = (() => {
     cell.addEventListener('click', () => {
       if (!cell.textContent) {
         const index = cell.dataset.index
-        const currentPlayer = gameController.getCurrentPlayer()
         if (gameBoard.markCell(index, currentPlayer)) {
+          const currentPlayer = gameController.getCurrentPlayer()
+          playerTurn.textContent = `${currentPlayer}'s turn`
           render()
           const winner = gameBoard.checkWinner()
           if (winner) {
@@ -105,12 +108,14 @@ const displayController = (() => {
   })
 
   resetBtn.addEventListener('click', () => {
+    gameController.switchPlayer()
     gameBoard.resetBoard()
     render()
   })
 
   startBtn.addEventListener('click', () => {
     boardDisplay.style.display = 'grid'
+    playerTurn.style.display = 'grid'
     resetBtnDisplay.style.display = 'grid'
     startBtnDisplay.style.display = 'none'
   })

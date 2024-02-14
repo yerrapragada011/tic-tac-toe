@@ -48,3 +48,8 @@
   display: grid;
   margin-top: 10px;
 }
+
+.player-turn {
+  display: none;
+  justify-content: center;
+}
