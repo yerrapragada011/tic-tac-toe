@@ -64,7 +64,10 @@ const displayController = (() => {
   const cells = document.querySelectorAll('.cell')
   const status = document.querySelector('.status')
   const resetBtn = document.getElementById('reset')
-//   const startBtn = document.querySelector('.start-btn-container')
+  const startBtn = document.getElementById('start')
+  const boardDisplay = document.getElementById('board')
+  const resetBtnDisplay = document.querySelector('.reset-btn-container')
+  const startBtnDisplay = document.querySelector('.start-btn-container')
 
   const render = () => {
     const board = gameBoard.getBoard()
@@ -93,16 +96,23 @@ const displayController = (() => {
             } else {
               status.textContent = `${winner} wins!`
             }
-            resetBtn.addEventListener('click', () => {
-              gameBoard.resetBoard()
-              render()
-            })
           } else {
             gameController.switchPlayer()
           }
         }
       }
     })
+  })
+
+  resetBtn.addEventListener('click', () => {
+    gameBoard.resetBoard()
+    render()
+  })
+
+  startBtn.addEventListener('click', () => {
+    boardDisplay.style.display = 'grid'
+    resetBtnDisplay.style.display = 'grid'
+    startBtnDisplay.style.display = 'none'
   })
 
   return { render }

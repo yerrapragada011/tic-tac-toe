@@ -1,5 +1,5 @@
 .board {
-  display: grid;
+  display: none;
   grid-template-columns: repeat(3, 100px);
   grid-template-rows: repeat(3, 100px);
   gap: 2px;
@@ -40,12 +40,11 @@
 }
 
 .reset-btn-container {
-  display: grid;
+  display: none;
   justify-content: center;
 }
 
 #start {
   display: grid;
   margin-top: 10px;
-  align-items: center;
 }
