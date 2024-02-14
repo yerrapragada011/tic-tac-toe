@@ -69,9 +69,19 @@ const displayController = (() => {
   const resetBtnDisplay = document.querySelector('.reset-btn-container')
   const startBtnDisplay = document.querySelector('.start-btn-container')
   const playerTurn = document.querySelector('.player-turn')
-  //   const currentPlayer = gameController.getCurrentPlayer()
+  let player1 = ''
+  let player2 = ''
+
+  const getPlayerNames = () => {
+    player1 = prompt('Enter name for player 1: ')
+    player2 = prompt('Enter name for player 2: ')
+    render()
+  }
 
   const render = () => {
+    playerTurn.textContent = `${
+      gameController.getCurrentPlayer() === 'X' ? player1 : player2
+    }'s turn`
     const board = gameBoard.getBoard()
     cells.forEach((cell, index) => {
       cell.textContent = board[index]
@@ -88,19 +98,20 @@ const displayController = (() => {
     cell.addEventListener('click', () => {
       if (!cell.textContent) {
         const index = cell.dataset.index
+        const currentPlayer = gameController.getCurrentPlayer()
         if (gameBoard.markCell(index, currentPlayer)) {
-          const currentPlayer = gameController.getCurrentPlayer()
-          playerTurn.textContent = `${currentPlayer}'s turn`
           render()
           const winner = gameBoard.checkWinner()
           if (winner) {
             if (winner === 'tie') {
               status.textContent = `It's a tie!`
             } else {
-              status.textContent = `${winner} wins!`
+              const winningPlayer = winner === 'X' ? player1 : player2
+              status.textContent = `${winningPlayer} wins!`
             }
           } else {
             gameController.switchPlayer()
+            render()
           }
         }
       }
@@ -108,16 +119,19 @@ const displayController = (() => {
   })
 
   resetBtn.addEventListener('click', () => {
-    gameController.switchPlayer()
     gameBoard.resetBoard()
-    render()
+    boardDisplay.style.display = 'none'
+    resetBtnDisplay.style.display = 'none'
+    startBtnDisplay.style.display = 'grid'
+    playerTurn.style.display = 'none'
   })
 
   startBtn.addEventListener('click', () => {
+    getPlayerNames()
     boardDisplay.style.display = 'grid'
-    playerTurn.style.display = 'grid'
     resetBtnDisplay.style.display = 'grid'
     startBtnDisplay.style.display = 'none'
+    playerTurn.style.display = 'grid'
   })
 
   return { render }
