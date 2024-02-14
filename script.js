@@ -1,5 +1,6 @@
 const gameBoard = (() => {
   const board = ['', '', '', '', '', '', '', '', '']
+  const status = document.querySelector('.status')
 
   const getBoard = () => [...board]
 
@@ -41,6 +42,7 @@ const gameBoard = (() => {
     for (let i = 0; i < board.length; i++) {
       board[i] = ''
     }
+    status.textContent = ''
   }
 
   return { getBoard, markCell, checkWinner, resetBoard }
@@ -61,6 +63,8 @@ const gameController = (() => {
 const displayController = (() => {
   const cells = document.querySelectorAll('.cell')
   const status = document.querySelector('.status')
+  const resetBtn = document.getElementById('reset')
+//   const startBtn = document.querySelector('.start-btn-container')
 
   const render = () => {
     const board = gameBoard.getBoard()
@@ -86,13 +90,13 @@ const displayController = (() => {
           if (winner) {
             if (winner === 'tie') {
               status.textContent = `It's a tie!`
-              //   alert(`It's a tie!`)
             } else {
               status.textContent = `${winner} wins!`
-              //   alert(`${winner} wins!`)
             }
-            gameBoard.resetBoard()
-            render()
+            resetBtn.addEventListener('click', () => {
+              gameBoard.resetBoard()
+              render()
+            })
           } else {
             gameController.switchPlayer()
           }

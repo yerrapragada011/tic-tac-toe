@@ -33,3 +33,19 @@
   display: grid;
   justify-content: center;
 }
+
+.start-btn-container {
+  display: grid;
+  justify-content: center;
+}
+
+.reset-btn-container {
+  display: grid;
+  justify-content: center;
+}
+
+#start {
+  display: grid;
+  margin-top: 10px;
+  align-items: center;
+}
