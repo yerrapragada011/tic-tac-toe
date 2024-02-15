@@ -1,6 +1,7 @@
 const gameBoard = (() => {
   const board = ['', '', '', '', '', '', '', '', '']
   const status = document.querySelector('.status')
+  const cells = document.querySelectorAll('.cell')
 
   const getBoard = () => [...board]
 
@@ -38,11 +39,18 @@ const gameBoard = (() => {
     return null
   }
 
+  const unDisable = () => {
+    cells.forEach((cell) => {
+      cell.style.pointerEvents = 'auto'
+    })
+  }
+
   const resetBoard = () => {
     for (let i = 0; i < board.length; i++) {
       board[i] = ''
     }
     status.textContent = ''
+    unDisable()
   }
 
   return { getBoard, markCell, checkWinner, resetBoard }
