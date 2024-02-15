@@ -94,6 +94,12 @@ const displayController = (() => {
     })
   }
 
+  const setDisabled = () => {
+    cells.forEach((cell) => {
+      cell.style.pointerEvents = 'none'
+    })
+  }
+
   cells.forEach((cell) => {
     cell.addEventListener('click', () => {
       if (!cell.textContent) {
@@ -105,9 +111,11 @@ const displayController = (() => {
           if (winner) {
             if (winner === 'tie') {
               status.textContent = `It's a tie!`
+              setDisabled()
             } else {
               const winningPlayer = winner === 'X' ? player1 : player2
               status.textContent = `${winningPlayer} wins!`
+              setDisabled()
             }
           } else {
             gameController.switchPlayer()
