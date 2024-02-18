@@ -135,11 +135,15 @@ const displayController = (() => {
   })
 
   resetBtn.addEventListener('click', () => {
-    gameBoard.resetBoard()
-    boardDisplay.style.display = 'none'
-    resetBtnDisplay.style.display = 'none'
-    startBtnDisplay.style.display = 'grid'
-    playerTurn.style.display = 'none'
+    if (confirm('Are you sure?')) {
+      gameBoard.resetBoard()
+      boardDisplay.style.display = 'none'
+      resetBtnDisplay.style.display = 'none'
+      startBtnDisplay.style.display = 'grid'
+      playerTurn.style.display = 'none'
+    } else {
+      return null
+    }
   })
 
   startBtn.addEventListener('click', () => {
